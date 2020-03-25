@@ -15,16 +15,23 @@ export default class ReactAntCard extends Component {
     /**
      * The extended className for component.
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+    /**
+     * If ant-card-body should have padding.
+     */
+    padding: PropTypes.bool
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    padding: false
+  };
 
   render() {
-    const { className, ...props } = this.props;
+    const { className, padding, ...props } = this.props;
     return (
       <Card
         data-component={CLASS_NAME}
+        data-padding={padding}
         className={classNames(CLASS_NAME, className)}
         {...props}
       />

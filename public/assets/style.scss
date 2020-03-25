@@ -13,13 +13,13 @@ body,
 .app-container {
   width: 50%;
   height: 400px;
-  border:1px solid lightgreen;
+  // border:1px solid lightgreen;
   transform: translate(-50%, -50%);
   position: absolute;
   left: 50%;
   top: 50%;
 
   .react-ant-card{
-    border:1px solid red;
+    // border:1px solid red;
   }
 }

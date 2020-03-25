@@ -1,6 +1,6 @@
 {
   "name": "@feizheng/react-ant-card",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Card wrapper for ant.",
   "main": "dist/index.js",
   "scripts": {
