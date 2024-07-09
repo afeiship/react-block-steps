@@ -1,22 +1,47 @@
-import React, { HTMLAttributes } from 'react';
+// import noop from '@jswork/noop';
 import cx from 'classnames';
+import React, { Component, HTMLAttributes } from 'react';
+import ReactList, { ReactListProps } from '@jswork/react-list';
 
 const CLASS_NAME = 'react-block-steps';
-
-export type IProps = {
-  /**
-   * Additional CSS class names to apply to the component.
-   * @default ''
-   */
-  className?: string;
-  /**
-   * The content of the component.
-   * @default null
-   */
-  children?: React.ReactNode;
+// const uuid = () => Math.random().toString(36).substring(2, 9);
+export type ReactBlockStepsProps = {
+  value: number;
+  size: number;
+  withIndex?: boolean;
+  itemClassName?: string;
+  activeClassName?: string;
+  listProps?: Omit<ReactListProps, 'items' | 'template'>;
 } & HTMLAttributes<HTMLDivElement>;
 
-export default function ReactBlockSteps(props: IProps) {
-  const { className, ...rest } = props;
-  return <div data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest} />;
+export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
+  static displayName = CLASS_NAME;
+  static version = '__VERSION__';
+  static defaultProps = {
+    value: 0,
+    size: 5,
+    withIndex: false,
+    activeClassName: 'is-active',
+  };
+
+  get items() {
+    const { size } = this.props;
+    return Array.from({ length: size }, (_, index) => index + 1);
+  }
+
+  handleTemplate = ({ item, index }) => {
+    const { value, itemClassName, withIndex, activeClassName } = this.props;
+    const isActive = index < value;
+    const children = withIndex ? item : null;
+    return <span key={item} className={cx({ [activeClassName!]: isActive }, itemClassName)}>{children}</span>;
+  };
+
+  render() {
+    const { className, value, listProps, activeClassName, itemClassName, withIndex, ...rest } = this.props;
+    return (
+      <div date-value={value} data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
+        <ReactList items={this.items} template={this.handleTemplate} {...listProps} />
+      </div>
+    );
+  }
 }

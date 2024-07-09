@@ -8,8 +8,15 @@ function App() {
         Build Time: {BUILD_TIME}
       </div>
       <h1>react-block-steps</h1>
-      <ReactBlockSteps />
-      <button className='btn btn-info'>Button</button>
+      <div className="y-3">
+        <ReactBlockSteps value={1} activeClassName="!bg-red-600 text-white"
+                         itemClassName="rounded-full fcc bg-red-300 size-5 text-xs" className="fcc x-2 bg-gray-200" />
+        <ReactBlockSteps value={2} activeClassName="!bg-red-600 text-white"
+                         itemClassName="rounded-full fcc bg-red-300 size-5 text-xs" className="fcc x-2 bg-gray-200" />
+        <ReactBlockSteps value={10} activeClassName="!bg-red-600 text-white"
+                         itemClassName="rounded-full fcc bg-red-300 size-5 text-xs" className="fcc x-2 bg-gray-200" />
+      </div>
+      <button className="btn btn-info">Button</button>
     </div>
   );
 }
