@@ -37,7 +37,7 @@ export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
   render() {
     const { className, value, listProps, activeClassName, itemClassName, withIndex, ...rest } = this.props;
     return (
-      <div date-value={value} data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
+      <div data-value={value} data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
         <ReactList items={this.items} template={this.handleTemplate} {...listProps} />
       </div>
     );
