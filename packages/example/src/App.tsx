@@ -16,7 +16,6 @@ function App() {
         <ReactBlockSteps value={10} activeClassName="!bg-red-600 text-white"
                          itemClassName="rounded-full fcc bg-red-300 size-5 text-xs" className="fcc x-2 bg-gray-200" />
       </div>
-      <button className="btn btn-info">Button</button>
     </div>
   );
 }

@@ -1,10 +1,8 @@
-// import noop from '@jswork/noop';
 import cx from 'classnames';
 import React, { Component, HTMLAttributes } from 'react';
 import ReactList, { ReactListProps } from '@jswork/react-list';
 
 const CLASS_NAME = 'react-block-steps';
-// const uuid = () => Math.random().toString(36).substring(2, 9);
 export type ReactBlockStepsProps = {
   value: number;
   size: number;
