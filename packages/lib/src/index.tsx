@@ -1,14 +1,13 @@
 import cx from 'classnames';
-import React, { Component, HTMLAttributes } from 'react';
+import React, { Component, HTMLAttributes, ReactNode } from 'react';
 import ReactList, { ReactListProps } from '@jswork/react-list';
 
 const CLASS_NAME = 'react-block-steps';
 export type ReactBlockStepsProps = {
   value: number;
   size: number;
-  withIndex?: boolean;
-  itemClassName?: string;
-  activeClassName?: string;
+  activatedSection: ReactNode;
+  deactivatedSection: ReactNode;
   listProps?: Omit<ReactListProps, 'items' | 'template'>;
 } & HTMLAttributes<HTMLDivElement>;
 
@@ -18,8 +17,6 @@ export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
   static defaultProps = {
     value: 0,
     size: 5,
-    withIndex: false,
-    activeClassName: 'is-active',
   };
 
   get items() {
@@ -28,14 +25,14 @@ export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
   }
 
   handleTemplate = ({ item, index }) => {
-    const { value, itemClassName, withIndex, activeClassName } = this.props;
-    const isActive = index < value;
-    const children = withIndex ? item : null;
-    return <span key={item} className={cx({ [activeClassName!]: isActive }, itemClassName)}>{children}</span>;
+    const { value, activatedSection, deactivatedSection } = this.props;
+    const isActive = value >= item;
+    const children = isActive ? activatedSection : deactivatedSection;
+    return React.createElement(React.Fragment, { key: index }, children);
   };
 
   render() {
-    const { className, value, listProps, activeClassName, itemClassName, withIndex, ...rest } = this.props;
+    const { className, value, listProps, size, activatedSection, deactivatedSection, ...rest } = this.props;
     return (
       <div data-value={value} data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
         <ReactList items={this.items} template={this.handleTemplate} {...listProps} />
