@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React, { Component, HTMLAttributes, ReactNode } from 'react';
+import React, { Component, HTMLAttributes, ReactElement, Children, ReactNode } from 'react';
 import ReactList, { ReactListProps } from '@jswork/react-list';
 
 const CLASS_NAME = 'react-block-steps';
@@ -26,15 +26,24 @@ export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
 
   handleTemplate = ({ item, index }) => {
     const { value, activatedSection, deactivatedSection } = this.props;
-    const isActive = value >= item;
-    const children = isActive ? activatedSection : deactivatedSection;
-    return React.createElement(React.Fragment, { key: index }, children);
+    const active = value >= item;
+    const customProps = { 'data-value': value, 'data-index': index };
+    const children = active ? activatedSection : deactivatedSection;
+    const _children = Children.map(children, (child: ReactElement) =>
+      React.cloneElement(child, customProps)
+    );
+    return React.createElement(React.Fragment, { key: index }, _children);
   };
 
   render() {
-    const { className, value, listProps, size, activatedSection, deactivatedSection, ...rest } = this.props;
+    const { className, value, listProps, size, activatedSection, deactivatedSection, ...rest } =
+      this.props;
     return (
-      <div data-value={value} data-component={CLASS_NAME} className={cx(CLASS_NAME, className)} {...rest}>
+      <div
+        data-value={value}
+        data-component={CLASS_NAME}
+        className={cx(CLASS_NAME, className)}
+        {...rest}>
         <ReactList items={this.items} template={this.handleTemplate} {...listProps} />
       </div>
     );
