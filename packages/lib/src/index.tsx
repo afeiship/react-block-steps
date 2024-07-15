@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React, { Component, HTMLAttributes, ReactElement, Children, ReactNode } from 'react';
+import React, { Component, HTMLAttributes, Children, ReactNode } from 'react';
 import ReactList, { ReactListProps } from '@jswork/react-list';
 
 const CLASS_NAME = 'react-block-steps';
@@ -29,9 +29,10 @@ export default class ReactBlockSteps extends Component<ReactBlockStepsProps> {
     const active = value >= item;
     const customProps = { 'data-value': value, 'data-index': index };
     const children = active ? activatedSection : deactivatedSection;
-    const _children = Children.map(children, (child: ReactElement) =>
-      React.cloneElement(child, customProps)
-    );
+    const _children = Children.map(children, (child) => {
+      if (!React.isValidElement(child)) return child;
+      return React.cloneElement(child, customProps);
+    });
     return React.createElement(React.Fragment, { key: index }, _children);
   };
 
