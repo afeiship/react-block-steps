@@ -41,7 +41,7 @@
     "step",
     "steps"
   ],
-  "dependencies": {
+  "peerDependencies": {
     "@jswork/react-list": "^1.2.8"
   }
 }
